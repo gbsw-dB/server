@@ -12,17 +12,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/audio")
-public class AudioController {
+public class AudioPassController {
 
     private final AudioAnalysisService audioAnalysisService;
 
     @Autowired
-    public AudioController(AudioAnalysisService audioAnalysisService) {
+    public AudioPassController(AudioAnalysisService audioAnalysisService) {
         this.audioAnalysisService = audioAnalysisService;
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<AudioAnalysisResponse> uploadAudio(@RequestParam("audio") MultipartFile file){
+    public ResponseEntity<AudioAnalysisResponse> uploadAudio(@RequestParam("file") MultipartFile file){
         try{
             // FastAPI로 전송 및 분석 결과 받기
             AudioAnalysisResponse response = audioAnalysisService.sendToFastAPI(

@@ -1,5 +1,6 @@
 package com.audion.service;
 
+import com.audion.client.FastApiClient;
 import com.audion.dto.AudioAnalysisResponse;
 import com.audion.rabbitmq.AudioSender;
 import org.springframework.core.io.ByteArrayResource;
@@ -13,55 +14,27 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+
 @Service
 public class AudioAnalysisService {
 
-    private final AudioSender audioSender;
+    private final FastApiClient fastApiClient;
 
-    public AudioAnalysisService(AudioSender audioSender) {
-        this.audioSender = audioSender;
+    public AudioAnalysisService(FastApiClient fastApiClient){
+        this.fastApiClient = fastApiClient;
     }
 
-    private final RestTemplate restTemplate = new RestTemplate();
-
-    public AudioAnalysisResponse sendToFastAPI(byte[] audioBytes, String originalFilename){
-//        // 파일을 Resource로 포장
-//        Resource fileAsResource = new ByteArrayResource(audioBytes) {
-//            @Override
-//            public String getFilename() {
-//                return originalFilename;
-//            }
-//        };
-//
-//        // MultipartFormData 준비
-//        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-//        body.add("audio", fileAsResource);
-//
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-//
-//        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-//
-//        // FastAPI 주소
-//        String fastApiUrl = "http://fastapi-server:8000/analyze";
-//
-//        // Post 요청 -> JSON 응답 받기
-//        ResponseEntity<AudioAnalysisResponse> response = restTemplate.postForEntity(
-//                fastApiUrl,
-//                requestEntity,
-//                AudioAnalysisResponse.class
-//        );
-//
-//        return response.getBody();
-
-        // 오디오 데이터를 메시지 큐에 전송
-        audioSender.sendAudio(audioBytes);
-
-        // 실제 분석 결과는 수신 로직 구현 전까지는 임시로 mock 반환
-        AudioAnalysisResponse mockResponse = new AudioAnalysisResponse();
-        mockResponse.setAudioType("Processing");
-        mockResponse.setDangerLevel(-1);
-        return mockResponse;
+    public AudioAnalysisResponse sendToFastAPI(byte[] audioBytes, String filename){
+        try{
+            Map<String, Object> result = fastApiClient.classifySound(audioBytes, filename);
+            boolean detail = result.containsKey("result") && Boolean.TRUE.equals(result.get("result"));
+            return new AudioAnalysisResponse(detail);
+        } catch(Exception e){
+            e.printStackTrace();
+            System.out.println(e);
+            System.out.println("오류!!!!!!!!!!");
+            return new AudioAnalysisResponse(false);
+        }
     }
-
 }
