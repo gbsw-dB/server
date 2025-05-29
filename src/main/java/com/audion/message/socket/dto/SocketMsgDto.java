@@ -1,4 +1,4 @@
-package com.audion.dto;
+package com.audion.message.socket.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

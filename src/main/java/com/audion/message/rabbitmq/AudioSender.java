@@ -1,8 +1,7 @@
-package com.audion.rabbitmq;
+package com.audion.message.rabbitmq;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

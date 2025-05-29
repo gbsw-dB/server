@@ -1,4 +1,4 @@
-package com.audion.config;
+package com.audion.message.socket.config;
 
 import com.audion.common.environment.ConfigUtil;
 import com.corundumstudio.socketio.SocketIOServer;

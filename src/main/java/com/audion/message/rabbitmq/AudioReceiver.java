@@ -1,6 +1,6 @@
-package com.audion.rabbitmq;
+package com.audion.message.rabbitmq;
 
-import com.audion.dto.AudioAnalysisResponse;
+import com.audion.audioanalysis.dto.AudioAnalysisResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;

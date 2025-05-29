@@ -1,4 +1,4 @@
-package com.audion.rabbitmq;
+package com.audion.message.rabbitmq;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;

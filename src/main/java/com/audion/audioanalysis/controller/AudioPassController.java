@@ -1,7 +1,7 @@
-package com.audion.controller;
+package com.audion.audioanalysis.controller;
 
-import com.audion.dto.AudioAnalysisResponse;
-import com.audion.service.AudioAnalysisService;
+import com.audion.audioanalysis.dto.AudioAnalysisResponse;
+import com.audion.audioanalysis.service.AudioAnalysisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

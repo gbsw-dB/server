@@ -1,18 +1,8 @@
-package com.audion.service;
+package com.audion.audioanalysis.service;
 
-import com.audion.client.FastApiClient;
-import com.audion.dto.AudioAnalysisResponse;
-import com.audion.rabbitmq.AudioSender;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.audion.audioanalysis.client.FastApiClient;
+import com.audion.audioanalysis.dto.AudioAnalysisResponse;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
