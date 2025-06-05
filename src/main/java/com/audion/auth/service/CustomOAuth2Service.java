@@ -42,7 +42,7 @@ public class CustomOAuth2Service extends DefaultOAuth2UserService {
         Optional<UserAccount> byUsername = userAccountRepository.findByUsername(username);
         UserAccount account = null;
         if (byUsername.isEmpty()) {
-            account = account.builder()
+            account = UserAccount.builder()
                     .username(username)
                     .email(email)
                     .password(bCryptPasswordEncoder.encode(username + "kakao"))

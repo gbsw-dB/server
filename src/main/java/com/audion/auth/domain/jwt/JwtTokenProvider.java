@@ -1,5 +1,6 @@
 package com.audion.auth.domain.jwt;
 
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,7 +30,6 @@ public class JwtTokenProvider {
 
     public String createAccessToken(String username) {
         Date now = new Date();
-
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuer(issuer)
@@ -41,7 +41,6 @@ public class JwtTokenProvider {
 
     public String createRefreshToken(String username) {
         Date now = new Date();
-
         return Jwts.builder()
                 .setSubject(username)
                 .setIssuer(issuer)
@@ -51,8 +50,39 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String getUserPkFromRefreshToken(String refreshToken) {
-        return Jwts.parser().setSigningKey(refreshSecretKey).build().parseSignedClaims(refreshToken).getBody().getSubject();
+    public String getUserPkFromAccessToken(String accessToken) {
+        return Jwts.parser()
+                .setSigningKey(accessSecretKey)
+                .build()
+                .parseSignedClaims(accessToken)
+                .getBody()
+                .getSubject();
     }
 
+    public String getUserPkFromRefreshToken(String refreshToken) {
+        return Jwts.parser()
+                .setSigningKey(refreshSecretKey)
+                .build()
+                .parseSignedClaims(refreshToken)
+                .getBody()
+                .getSubject();
+    }
+
+    public boolean validateAccessToken(String token) {
+        return validateToken(token, true);
+    }
+
+    public boolean validateRefreshToken(String token) {
+        return validateToken(token, false);
+    }
+
+    private boolean validateToken(String token, boolean isAccess) {
+        try {
+            String key = isAccess ? accessSecretKey : refreshSecretKey;
+            Jwts.parser().setSigningKey(key).build().parseSignedClaims(token);
+            return true;
+        } catch (JwtException e) {
+            return false;
+        }
+    }
 }
