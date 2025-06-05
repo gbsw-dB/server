@@ -1,4 +1,4 @@
-package com.audion.auth;
+package com.audion.common.environment;
 
 import com.audion.auth.domain.handler.LoginSuccessHandler;
 import com.audion.auth.domain.jwt.JwtTokenFilter;
@@ -23,7 +23,18 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http, JwtTokenFilter jwtTokenFilter, CustomOAuth2Service customOAuth2Service, LoginSuccessHandler loginSuccessHandler) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/").permitAll()
+                        .requestMatchers(
+                                "/",
+                                "/login**",
+                                "/oauth2/**",
+                                "/error",
+                                "/docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**"
+                        ).permitAll()
+
                         .anyRequest().authenticated());
 
         http
