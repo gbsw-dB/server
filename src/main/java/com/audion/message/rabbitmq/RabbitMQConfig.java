@@ -2,9 +2,11 @@ package com.audion.message.rabbitmq;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@ConditionalOnProperty(name = "features.rabbitmq-enabled", havingValue = "true")
 @Configuration
 public class RabbitMQConfig {
 
