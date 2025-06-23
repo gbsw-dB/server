@@ -2,8 +2,10 @@ package com.audion.message.rabbitmq;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+@ConditionalOnProperty(name = "features.rabbitmq-enabled", havingValue = "true")
 @Component
 public class AudioSender {
 
