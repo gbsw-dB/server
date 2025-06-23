@@ -38,7 +38,7 @@ public class FastApiClient {
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        String fastApiUrl = "https://2ffb-34-125-150-114.ngrok-free.app/predicct";
+        String fastApiUrl = "https://2ffb-34-125-150-114.ngrok-free.app/predict";
 
         ResponseEntity<Map> response = restTemplate.postForEntity(
                 fastApiUrl,
