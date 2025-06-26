@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Schema(description = "OAuth 로그인 응답")
+@Schema
 @Data
 @AllArgsConstructor
 public class OAuthLoginResponse {
