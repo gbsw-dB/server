@@ -18,6 +18,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
+
     private final JwtRefreshTokenRepository jwtRefreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final ObjectMapper objectMapper;

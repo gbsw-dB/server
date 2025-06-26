@@ -25,6 +25,6 @@ public class AudioAnalysisResponse {
 //                '}';
 //    }
 
-    // 임시 json 형태
-    private Boolean result;
+    private Double probability;
+    private String result;
 }

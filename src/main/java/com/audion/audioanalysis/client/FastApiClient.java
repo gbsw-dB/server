@@ -29,16 +29,16 @@ public class FastApiClient {
         };
 
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-        body.add("file", fileAsResource);
+        body.add("audio", fileAsResource);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
-        headers.add(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=file; filename=" + filename);
+        headers.add(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=audio; filename=" + filename);
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
-        String fastApiUrl = "https://f62a-34-148-212-149.ngrok-free.app/predict";
+        String fastApiUrl = "https://2ffb-34-125-150-114.ngrok-free.app/predict";
 
         ResponseEntity<Map> response = restTemplate.postForEntity(
                 fastApiUrl,
