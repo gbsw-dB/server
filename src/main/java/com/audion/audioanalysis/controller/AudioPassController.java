@@ -2,6 +2,7 @@ package com.audion.audioanalysis.controller;
 
 import com.audion.audioanalysis.dto.AudioAnalysisResponse;
 import com.audion.audioanalysis.service.AudioAnalysisService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +22,7 @@ public class AudioPassController {
         this.audioAnalysisService = audioAnalysisService;
     }
 
+    @Tag(name = "FastAPI upload", description = "FastAPI로 전송 및 분석 결과 받기")
     @PostMapping("/upload")
     public ResponseEntity<AudioAnalysisResponse> uploadAudio(@RequestParam("file") MultipartFile file){
         try{

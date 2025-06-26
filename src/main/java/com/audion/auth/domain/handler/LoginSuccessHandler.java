@@ -1,10 +1,10 @@
 package com.audion.auth.domain.handler;
 
+import com.audion.auth.domain.dto.OAuthLoginResponse;
 import com.audion.auth.domain.jwt.JwtTokenProvider;
-import com.audion.auth.domain.jwt.entity.JwtAccessToken;
 import com.audion.auth.domain.jwt.entity.JwtRefreshToken;
-import com.audion.auth.domain.jwt.repository.JwtAccessTokenRepository;
 import com.audion.auth.domain.jwt.repository.JwtRefreshTokenRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
-    private final JwtAccessTokenRepository jwtAccessTokenRepository;
     private final JwtRefreshTokenRepository jwtRefreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
-    private final int accessTokenValidTime = 10 * 60;
-    private final int refreshTokenValidTime = 10 * 24 * 60 * 60;
+    private final ObjectMapper objectMapper;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -32,13 +30,14 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
         String accessToken = jwtTokenProvider.createAccessToken(username);
         String refreshToken = jwtTokenProvider.createRefreshToken(username);
 
-        jwtAccessTokenRepository.save(new JwtAccessToken(username, accessToken));
         jwtRefreshTokenRepository.save(new JwtRefreshToken(username, refreshToken));
 
-        response.addHeader("Username", username);
-        response.addHeader("Authorization", "Bearer " + accessToken);
-        response.addHeader("RefreshToken", refreshToken);
-        response.sendRedirect("/");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        OAuthLoginResponse result = new OAuthLoginResponse(username, accessToken, refreshToken);
+        String json = objectMapper.writeValueAsString(result);
+
+        response.getWriter().write(json);
 
     }
 

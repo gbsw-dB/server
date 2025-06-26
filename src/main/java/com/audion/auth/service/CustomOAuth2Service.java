@@ -40,7 +40,7 @@ public class CustomOAuth2Service extends DefaultOAuth2UserService {
         String email = response.getEmail();
 
         Optional<UserAccount> byUsername = userAccountRepository.findByUsername(username);
-        UserAccount account = null;
+        UserAccount account;
         if (byUsername.isEmpty()) {
             account = account.builder()
                     .username(username)
