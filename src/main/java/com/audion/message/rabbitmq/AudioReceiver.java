@@ -3,8 +3,10 @@ package com.audion.message.rabbitmq;
 import com.audion.audioanalysis.dto.AudioAnalysisResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
+@ConditionalOnProperty(name = "features.rabbitmq-enabled", havingValue = "true")
 @Component
 public class AudioReceiver {
 

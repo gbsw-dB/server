@@ -22,7 +22,7 @@ public class AudioPassController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<AudioAnalysisResponse> uploadAudio(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<AudioAnalysisResponse> uploadAudio(@RequestParam("audio") MultipartFile file){
         try{
             // FastAPI로 전송 및 분석 결과 받기
             AudioAnalysisResponse response = audioAnalysisService.sendToFastAPI(
