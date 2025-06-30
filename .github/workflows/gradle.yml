@@ -65,5 +65,5 @@ jobs:
               git pull origin main              # 최신 코드 가져오기
               ./gradlew clean build -x test
               sudo docker build -t audion .
-              sudo docker rm -f audion || true
+              sudo docker rm -f audion
               sudo docker run -d --name audion -p 8080:8080 --restart unless-stopped audion
