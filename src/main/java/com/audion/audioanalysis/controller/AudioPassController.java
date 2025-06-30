@@ -24,7 +24,7 @@ public class AudioPassController {
     }
 
     @Tag(name = "FastAPI upload", description = "FastAPI로 전송 및 분석 결과 받기")
-    @PostMapping(value = "/upload", consumes = {"multipart/form-data"})
+    @PostMapping(value = "/upload", consumes = "multipart/form-data")
     public ResponseEntity<AudioAnalysisResponse> uploadAudio(
             @Parameter(description = "업로드할 오디오 파일", required = true)
             @RequestParam("audio") MultipartFile file){
