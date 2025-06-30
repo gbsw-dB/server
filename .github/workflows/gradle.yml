@@ -25,13 +25,13 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    # github secret 환경변수로 적어둔 APPLICATION_YML으로 application.yml파일을 생성합니다.
+    # github secret 환경변수로 적어둔 APPLICATION_PROPERTIES으로 application.yml파일을 생성합니다.
     # 환경변수가 지나치게 많아짐을 방지하기 위해 APPLICATION_YML 변수를 만들었습니다.
     - name: make application.yml
       run: |
         cd ./src/main/resources
         touch ./application.yml
-        echo "${{ secrets.APPLICATION_YML }}" >> ./application.yml
+        echo "${{ secrets.APPLICATION_PROPERTIES }}" >> ./application.yml
       shell: bash
       
     # gradlew에 실행 권한을 부여합니다.
