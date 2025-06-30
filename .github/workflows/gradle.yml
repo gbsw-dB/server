@@ -29,9 +29,8 @@ jobs:
     # 환경변수가 지나치게 많아짐을 방지하기 위해 APPLICATION_YML 변수를 만들었습니다.
     - name: make application.yml
       run: |
-        cd ./src/main/resources
-        touch ./application.yml
-        echo "${{ secrets.APPLICATION_PROPERTIES }}" >> ./application.yml
+        touch ec2-user/server/src/main/resource/application.yml
+        echo "${{ secrets.APPLICATION_PROPERTIES }}" >> ec2-user/server/src/main/resource/application.yml
       shell: bash
       
     # gradlew에 실행 권한을 부여합니다.
