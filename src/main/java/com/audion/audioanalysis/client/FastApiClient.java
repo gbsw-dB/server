@@ -20,6 +20,9 @@ public class FastApiClient {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    @Value("${fastapi.url}")
+    private String fastApiUrl;
+
     public Map<String, Object> classifySound(byte[] audioBytes, String filename){
         Resource fileAsResource = new ByteArrayResource(audioBytes){
             @Override
@@ -37,8 +40,6 @@ public class FastApiClient {
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=audio; filename=" + filename);
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-
-        String fastApiUrl = "https://2ffb-34-125-150-114.ngrok-free.app/predict";
 
         ResponseEntity<Map> response = restTemplate.postForEntity(
                 fastApiUrl,
