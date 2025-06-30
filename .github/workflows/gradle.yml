@@ -66,4 +66,4 @@ jobs:
               ./gradlew clean build -x test
               sudo docker build -t audion .
               sudo docker rm -f audion || true
-              sudo docker run -d --name audion -p 8080:8080 audion
+              sudo docker run -d --name audion -p 8080:8080 --restart unless-stopped audion
